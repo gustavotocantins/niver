@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aniversariantes Politique → Chatwoot</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --accent: #0ea5e9;
+            --accent-glow: rgba(14, 165, 233, 0.3);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-blur: blur(12px);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            margin: 0 0 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            color: white;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 14px;
+            padding: 14px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: white;
+            border: 1px solid var(--card-border);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        button.primary {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border: none;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+        }
+
+        button.primary:hover {
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6);
+        }
+
+        button.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        button.danger:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 32px;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+
+        .stat-card span {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .advanced-toggle {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .advanced-trigger {
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .advanced-trigger:hover {
+            color: var(--accent);
+        }
+
+        .advanced-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+        }
+
+        .status-terminal {
+            background: #000;
+            border-radius: 16px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            height: 150px;
+            overflow-y: auto;
+            border: 1px solid #334155;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin-top: 8px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 14px;
+            font-size: 14px;
+        }
+
+        tr td:first-child { border-radius: 12px 0 0 12px; }
+        tr td:last-child { border-radius: 0 12px 12px 0; }
+
+        .pill {
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .err { color: #f87171; }
+        .ok { color: #4ade80; }
+        .warn { color: #fbbf24; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        @media (max-width: 600px) {
+            .input-group { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <h1>🎈 Aniversariantes</h1>
+            <p class="sub">Automação para buscar aniversariantes na Politique e etiquetar no Blichat de forma rápida.</p>
+        </header>
+
+        <div class="card">
+            <div class="input-group">
+                <div class="field">
+                    <label>Dia</label>
+                    <input id="dia" type="number" min="1" max="31" />
+                </div>
+                <div class="field">
+                    <label>Mês</label>
+                    <input id="mes" type="number" min="1" max="12" />
+                </div>
+            </div>
+
+            <div class="summary">
+                <div class="stat-card"><strong id="stTotal">0</strong><span>Recebidos</span></div>
+                <div class="stat-card"><strong id="stUnicos">0</strong><span>Únicos</span></div>
+                <div class="stat-card"><strong id="stCriados">0</strong><span>Criados</span></div>
+                <div class="stat-card"><strong id="stEtiquetados">0</strong><span>Etiquetados</span></div>
+            </div>
+
+            <div class="actions">
+                <button class="primary" id="btnExecutar">🚀 Iniciar Processo</button>
+                <button id="btnTeste">🔍 Testar API</button>
+                <button class="danger" id="btnLimpar">🗑️ Limpar</button>
+            </div>
+
+            <div class="status-terminal" id="status">Painel de logs pronto.</div>
+
+            <div class="advanced-toggle">
+                <div class="advanced-trigger" id="triggerAdvanced">
+                    ⚙️ Configurações Avançadas
+                </div>
+                <div class="advanced-content" id="contentAdvanced">
+                    <input id="politiqueToken" type="hidden" value="5213c041-ee42-441b-8c7f-3483693f20ac" />
+                    <input id="accountId" type="hidden" value="16" />
+                    <input id="chatwootToken" type="hidden" value="XqtuFZvgaq8thF8xgDUFBZGY" />
+                    <input id="chatwootHost" type="hidden" value="https://app.blichat.com" />
+
+                    <div class="field">
+                        <label>Proxy CORS (Opcional)</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input id="proxyUrl" type="text" placeholder="Ex: https://corsproxy.io/?" />
+                            <button id="btnFixCors" style="padding: 10px; white-space: nowrap; font-size: 11px; background: rgba(14, 165, 233, 0.1); border-color: var(--accent); color: var(--accent);">
+                                ⚡ Fix Local
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Dicas e Observações</label>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                            • <strong>CORS:</strong> Em `localhost`, use o botão ⚡ ao lado do proxy ou instale a extensão "Allow CORS".<br>
+                            • <strong>Produção:</strong> No Cloudflare, o sistema usa o proxy interno automaticamente.<br>
+                            • <strong>Segurança:</strong> O token do Blichat e Politique são mantidos apenas localmente.
+                        </p>
+                    </div>
+
+                    <div class="field" style="margin-top: 20px;">
+                        <label>Preview JSON (Técnico)</label>
+                        <textarea id="previewJson" 
+                            style="width: 100%; height: 100px; background: #000; border: 1px solid #334155; color: #4ade80; border-radius: 12px; font-family: monospace; font-size: 11px; padding: 10px; margin-top: 8px;" 
+                            placeholder="Retorno bruto aparecerá aqui."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Resultados</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>WhatsApp</th>
+                            <th>Label</th>
+                            <th>Status/Detalhe</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyResultados">
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 40px;">
+                                Aguardando início do processo...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const els = {
+            dia: document.getElementById('dia'),
+            mes: document.getElementById('mes'),
+            politiqueToken: document.getElementById('politiqueToken'),
+            accountId: document.getElementById('accountId'),
+            chatwootToken: document.getElementById('chatwootToken'),
+            chatwootHost: document.getElementById('chatwootHost'),
+            proxyUrl: document.getElementById('proxyUrl'),
+            btnExecutar: document.getElementById('btnExecutar'),
+            btnTeste: document.getElementById('btnTeste'),
+            btnLimpar: document.getElementById('btnLimpar'),
+            btnFixCors: document.getElementById('btnFixCors'),
+            status: document.getElementById('status'),
+            previewJson: document.getElementById('previewJson'),
+            tbody: document.getElementById('tbodyResultados'),
+            stTotal: document.getElementById('stTotal'),
+            stUnicos: document.getElementById('stUnicos'),
+            stCriados: document.getElementById('stCriados'),
+            stEtiquetados: document.getElementById('stEtiquetados'),
+            triggerAdvanced: document.getElementById('triggerAdvanced'),
+            contentAdvanced: document.getElementById('contentAdvanced'),
+        };
+
+        const hoje = new Date();
+        els.dia.value = hoje.getDate();
+        els.mes.value = hoje.getMonth() + 1;
+
+        function isLocal() {
+            return location.hostname === 'localhost' || location.hostname === '127.0.0.1' || !location.hostname;
+        }
+
+        function salvarConfig() {
+            const cfg = {
+                dia: els.dia.value,
+                mes: els.mes.value,
+                proxyUrl: els.proxyUrl.value,
+            };
+            localStorage.setItem('aniversariantes_cfg', JSON.stringify(cfg));
+            log('Configurações salvas.');
+        }
+
+        function carregarConfig() {
+            const raw = localStorage.getItem('aniversariantes_cfg');
+            let cfg = {};
+            try { if (raw) cfg = JSON.parse(raw); } catch { }
+
+            els.dia.value = cfg.dia || els.dia.value;
+            els.mes.value = cfg.mes || els.mes.value;
+            els.proxyUrl.value = cfg.proxyUrl || '';
+
+            if (isLocal()) {
+                log('Ambiente Local detectado. Lembre-se de ativar o Proxy CORS se houver erros.', 'warn');
+            }
+        }
+
+        function log(msg, type = 'info') {
+            const agora = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#fca5a5' : (type === 'warn' ? '#fcd34d' : '#e2e8f0');
+            const span = document.createElement('div');
+            span.style.color = color;
+            span.textContent = `[${agora}] ${msg}`;
+            els.status.appendChild(span);
+            els.status.scrollTop = els.status.scrollHeight;
+        }
+
+        function limparLogs() {
+            els.status.textContent = 'Logs limpos.';
+            els.previewJson.value = '';
+            els.tbody.innerHTML = '<tr><td colspan="6" class="muted">Nenhum resultado ainda.</td></tr>';
+            atualizarStats({ total: 0, unicos: 0, criados: 0, etiquetados: 0 });
+        }
+
+        function atualizarStats({ total = 0, unicos = 0, criados = 0, etiquetados = 0 }) {
+            els.stTotal.textContent = total;
+            els.stUnicos.textContent = unicos;
+            els.stCriados.textContent = criados;
+            els.stEtiquetados.textContent = etiquetados;
+        }
+
+        function pad2(v) {
+            return String(v).padStart(2, '0');
+        }
+
+        function gerarLabel(dia, mes) {
+            return `niver-${pad2(dia)}-${pad2(mes)}`;
+        }
+
+        function limparWhatsapp(numero) {
+            if (!numero) return null;
+            let n = String(numero).replace(/\D/g, '');
+            if (n.length < 10) return null;
+            if (!n.startsWith('55')) n = '55' + n;
+            return '+' + n;
+        }
+
+        function nomeCurto(nome) {
+            if (!nome) return 'Contato';
+            const partes = String(nome).trim().split(/\s+/).filter(Boolean);
+            if (!partes.length) return 'Contato';
+            if (partes.length === 1) return toTitle(partes[0]);
+            return `${toTitle(partes[0])} ${toTitle(partes[partes.length - 1])}`;
+        }
+
+        function toTitle(txt) {
+            return String(txt)
+                .toLowerCase()
+                .split(' ')
+                .map(p => p ? p[0].toUpperCase() + p.slice(1) : '')
+                .join(' ');
+        }
+
+        function addRow({ nomeOriginal, whatsapp, label, status, detalhe, classe }) {
+            const empty = els.tbody.querySelector('td[colspan]');
+            if (empty) els.tbody.innerHTML = '';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+        <td>${escapeHtml(nomeOriginal || '')}</td>
+        <td>${escapeHtml(whatsapp || '')}</td>
+        <td><span class="pill">${escapeHtml(label || '')}</span></td>
+        <td class="${classe || ''}"><strong>${escapeHtml(status || '')}</strong>: ${escapeHtml(detalhe || '')}</td>
+      `;
+            els.tbody.appendChild(tr);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function montarUrl(url) {
+            // A API da Politique já possui CORS liberado nativamente.
+            // Proxies públicos costumam falhar ao repassar o cabeçalho X-API-KEY (preflight OPTIONS).
+            if (url.includes('politique.app')) return url;
+
+            // Se o usuário definiu um proxy customizado (geralmente para teste local do Blichat)
+            const customProxy = els.proxyUrl?.value.trim();
+            if (customProxy) {
+                return customProxy + url;
+            }
+
+            const isLocalEnv = isLocal();
+            
+            // Usamos o proxy interno (/api-blichat) para o Blichat sempre que não houver proxy manual.
+            // Isso funciona no Cloudflare (via Functions) e no Wrangler localmente.
+            if (url.includes('app.blichat.com')) {
+                return url.replace('https://app.blichat.com', '/api-blichat');
+            }
+            
+            return url;
+        }
+
+        async function apiFetch(url, options = {}) {
+            if (!options.method) options.method = 'GET';
+            const finalUrl = montarUrl(url);
+            console.log(`[API REQUEST] ${options.method} ${finalUrl}`, options);
+
+            try {
+                const res = await fetch(finalUrl, options);
+                let data;
+                const txt = await res.text();
+                try { data = JSON.parse(txt); } catch { data = txt; }
+
+                if (!res.ok) {
+                    console.group('--- ERRO NA API ---');
+                    console.error('URL Chamada:', finalUrl);
+                    console.error('Método:', options.method);
+                    console.error('Status:', res.status);
+                    console.error('Headers de Resposta:', [...res.headers.entries()]);
+                    console.error('Corpo da Resposta:', data);
+                    console.groupEnd();
+                    
+                    const detail = typeof data === 'object' ? JSON.stringify(data) : data;
+                    throw new Error(`[HTTP ${res.status}] ${detail}`);
+                }
+                return data;
+            } catch (err) {
+                console.error('[API EXCEPTION]', err);
+                if (err.name === 'TypeError') {
+                    const extra = finalUrl !== url ? ` (via proxy: ${finalUrl})` : '';
+                    throw new Error(`Erro de conexão ou CORS ao acessar ${url}${extra}. Verifique o console ou tente um proxy.`);
+                }
+                throw err;
+            }
+        }
+
+        async function buscarAniversariantes() {
+            const dia = Number(els.dia.value);
+            const mes = Number(els.mes.value);
+            const token = els.politiqueToken.value.trim();
+
+            const body = {
+                diaAniversario: dia,
+                mesAniversario: mes,
+                pageNumber: 1,
+                pageSize: 200,
+            };
+
+            const data = await apiFetch('https://api.plataforma.politique.app/api/v1/pessoas/list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': token,
+                },
+                body: JSON.stringify(body),
+            });
+
+            if (Array.isArray(data)) return data;
+            if (data && Array.isArray(data.payload)) return data.payload;
+            return [];
+        }
+
+        async function buscarContatoPorTelefone(telefone) {
+            const host = els.chatwootHost.value.trim().replace(/\/$/, '');
+            const accountId = els.accountId.value.trim();
+            const token = els.chatwootToken.value.trim();
+
+            const url = `${host}/api/v1/accounts/${accountId}/contacts/search?q=${encodeURIComponent(telefone)}`;
+            const data = await apiFetch(url, {
+                method: 'GET',
+                headers: {
+                    'api_access_token': token,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const lista = Array.isArray(data?.payload) ? data.payload : [];
+            // Garantimos que o número seja exatamente o que queremos
+            return lista.find(c => c.phone_number === telefone)?.id || null;
+        }
+
+        async function criarContato(nome, telefone) {
+            const host = els.chatwootHost.value.trim().replace(/\/$/, '');
+            const accountId = els.accountId.value.trim();
+            const token = els.chatwootToken.value.trim();
+
+            const url = `${host}/api/v1/accounts/${accountId}/contacts`;
+            const data = await apiFetch(url, {
+                method: 'POST',
+                headers: {
+                    'api_access_token': token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: nome, phone_number: telefone }),
+            });
+            return data.payload ? data.payload.contact.id : null;
+        }
+
+        async function buscarLabels(contactId) {
+            const host = els.chatwootHost.value.trim().replace(/\/$/, '');
+            const accountId = els.accountId.value.trim();
+            const token = els.chatwootToken.value.trim();
+
+            const url = `${host}/api/v1/accounts/${accountId}/contacts/${contactId}/labels`;
+            const data = await apiFetch(url, {
+                method: 'GET',
+                headers: {
+                    'api_access_token': token,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (Array.isArray(data)) return data;
+            return data.payload || [];
+        }
+
+        async function adicionarLabel(contactId, label) {
+            const host = els.chatwootHost.value.trim().replace(/\/$/, '');
+            const accountId = els.accountId.value.trim();
+            const token = els.chatwootToken.value.trim();
+
+            const url = `${host}/api/v1/accounts/${accountId}/contacts/${contactId}/labels`;
+            await apiFetch(url, {
+                method: 'POST',
+                headers: {
+                    'api_access_token': token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ labels: [label] }),
+            });
+        }
+
+        async function testarBusca() {
+            try {
+                els.status.textContent = 'Testando busca na Politique...';
+                const lista = await buscarAniversariantes();
+                els.previewJson.value = JSON.stringify(lista.slice(0, 5), null, 2);
+                log(`Teste concluído. ${lista.length} aniversariantes encontrados.`);
+            } catch (e) {
+                log('Erro no teste: ' + e.message, 'error');
+            }
+        }
+
+        async function executar() {
+            const dia = Number(els.dia.value);
+            const mes = Number(els.mes.value);
+            const label = gerarLabel(dia, mes);
+            let criados = 0;
+            let etiquetados = 0;
+
+            try {
+                els.status.textContent = 'Iniciando processo...';
+                els.tbody.innerHTML = '<tr><td colspan="6" class="muted">Processando...</td></tr>';
+
+                const aniversariantes = await buscarAniversariantes();
+                els.previewJson.value = JSON.stringify(aniversariantes.slice(0, 5), null, 2);
+                log(`Politique retornou ${aniversariantes.length} registros.`);
+
+                const cacheContatos = {};
+                log(`Busca no Chatwoot será feita individualmente por telefone.`);
+
+                const unicos = new Map();
+                for (const pessoa of aniversariantes) {
+                    const tel = limparWhatsapp(pessoa.whatsapp);
+                    if (!tel) continue;
+                    if (!unicos.has(tel)) unicos.set(tel, pessoa);
+                }
+
+                atualizarStats({ total: aniversariantes.length, unicos: unicos.size, criados, etiquetados });
+
+                els.tbody.innerHTML = '';
+
+                for (const [telefone, pessoa] of unicos.entries()) {
+                    const nomeOriginal = pessoa.nome || '';
+                    const nomeChatwoot = nomeCurto(nomeOriginal);
+
+                    try {
+                        let contactId = cacheContatos[telefone];
+                        let detalhe = '';
+
+                        if (!contactId) {
+                            contactId = await buscarContatoPorTelefone(telefone);
+                            if (contactId) cacheContatos[telefone] = contactId;
+                        }
+
+                        if (!contactId) {
+                            contactId = await criarContato(nomeChatwoot, telefone);
+                            if (!contactId) {
+                                addRow({ nomeOriginal, nomeChatwoot, whatsapp: telefone, label, status: 'Erro', detalhe: 'Não foi possível criar o contato.', classe: 'err' });
+                                continue;
+                            }
+                            cacheContatos[telefone] = contactId;
+                            criados += 1;
+                            detalhe = 'Contato criado. ';
+                            log(`Contato criado: ${nomeChatwoot} (${telefone})`);
+                        } else {
+                            detalhe = 'Contato já existia. ';
+                        }
+
+                        const labels = await buscarLabels(contactId);
+                        if (!labels.includes(label)) {
+                            await adicionarLabel(contactId, label);
+                            etiquetados += 1;
+                            detalhe += 'Label aplicada.';
+                            addRow({ nomeOriginal, whatsapp: telefone, label, status: 'OK', detalhe, classe: 'ok' });
+                            log(`Label aplicada em ${telefone}: ${label}`);
+                        } else {
+                            detalhe += 'Já possuía a label.';
+                            addRow({ nomeOriginal, whatsapp: telefone, label, status: 'Aviso', detalhe, classe: 'warn' });
+                            log(`Sem alteração em ${telefone}: já possuía ${label}`);
+                        }
+
+                        atualizarStats({ total: aniversariantes.length, unicos: unicos.size, criados, etiquetados });
+                        await new Promise(r => setTimeout(r, 250));
+                    } catch (err) {
+                        addRow({ nomeOriginal, whatsapp: telefone, label, status: 'Erro', detalhe: err.message, classe: 'err' });
+                        log(`Erro ao processar ${telefone}: ${err.message}`, 'error');
+                    }
+                }
+
+                log('Processo concluído.');
+            } catch (e) {
+                log('Falha Crítica: ' + e.message, 'error');
+                console.error(e);
+            }
+        }
+        els.btnLimpar.addEventListener('click', limparLogs);
+        els.btnTeste.addEventListener('click', testarBusca);
+        els.btnFixCors.addEventListener('click', () => {
+            els.proxyUrl.value = 'https://corsproxy.io/?';
+            log('Proxy de teste ativado! Tente rodar o processo novamente.');
+            salvarConfig();
+        });
+        els.btnExecutar.addEventListener('click', async () => {
+            salvarConfig();
+            await executar();
+        });
+
+        els.triggerAdvanced.addEventListener('click', () => {
+            const isVisible = els.contentAdvanced.style.display === 'block';
+            els.contentAdvanced.style.display = isVisible ? 'none' : 'block';
+            els.triggerAdvanced.textContent = isVisible ? '⚙️ Configurações Avançadas' : '📂 Fechar Configurações';
+        });
+
+        carregarConfig();
+    </script>
+</body>
+
+</html>
